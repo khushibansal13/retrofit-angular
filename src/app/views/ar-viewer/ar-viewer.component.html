@@ -1,0 +1,351 @@
+﻿<div class="ar-page">
+
+  <!-- Header -->
+  <header class="ar-header">
+    <div>
+      <div class="eyebrow">AR VIEW</div>
+
+      <h1>See how your lock will look</h1>
+
+      <p>
+        Position the selected lock on your actual door before installation.
+      </p>
+    </div>
+
+    <div class="header-badge">
+      <span class="status-dot"></span>
+      AR preview
+    </div>
+  </header>
+
+
+  <!-- Main content -->
+  <main class="ar-content">
+
+    <!-- No door image -->
+    <section
+      class="empty-state"
+      *ngIf="!hasDoorImage()"
+    >
+      <div class="empty-icon">
+        📷
+      </div>
+
+      <h2>No door photo available</h2>
+
+      <p>
+        Go back to the configuration wizard and upload a photo of your door.
+      </p>
+    </section>
+
+
+    <!-- AR experience -->
+    <section
+      class="ar-layout"
+      *ngIf="hasDoorImage()"
+    >
+
+      <!-- Stage -->
+      <div class="stage-card">
+
+        <div class="stage-toolbar">
+
+          <div>
+            <strong>Door preview</strong>
+
+            <span>
+              Drag the lock to position it
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="reset-button"
+            (click)="resetPlacement()"
+          >
+            Reset
+          </button>
+
+        </div>
+
+
+        <div
+          #stage
+          class="ar-stage"
+          (pointermove)="onDrag($event)"
+          (pointerup)="stopDrag()"
+          (pointercancel)="stopDrag()"
+        >
+
+          <!-- Real customer door photo -->
+          <img
+            class="door-image"
+            [src]="doorImageUrl!"
+            alt="Your door"
+          />
+
+
+          <!-- Dark overlay -->
+          <div class="stage-overlay"></div>
+
+
+          <!-- Product overlay -->
+          <div
+            class="product-placement"
+            [style.left]="placementLeft"
+            [style.top]="placementTop"
+            [style.transform]="placementTransform"
+            (pointerdown)="startDrag($event)"
+          >
+
+            <div class="placement-ring"></div>
+
+            <img
+              class="product-image"
+              [src]="productImage"
+              [alt]="productName"
+              draggable="false"
+            />
+
+            <div class="drag-label">
+              Drag to move
+            </div>
+
+          </div>
+
+
+          <!-- Measurement hint -->
+          <div class="placement-hint">
+            <span class="hint-icon">✦</span>
+            Move the lock to the existing lock position
+          </div>
+
+        </div>
+
+
+        <!-- Controls -->
+        <div class="stage-controls">
+
+          <button
+            type="button"
+            class="control-button"
+            (click)="zoomOut()"
+            title="Zoom out"
+          >
+            −
+          </button>
+
+          <div class="scale-label">
+            {{ placement.scale * 100 | number:'1.0-0' }}%
+          </div>
+
+          <button
+            type="button"
+            class="control-button"
+            (click)="zoomIn()"
+            title="Zoom in"
+          >
+            +
+          </button>
+
+          <div class="control-divider"></div>
+
+          <button
+            type="button"
+            class="control-button rotate"
+            (click)="rotateLeft()"
+            title="Rotate left"
+          >
+            ↶
+          </button>
+
+          <button
+            type="button"
+            class="control-button rotate"
+            (click)="rotateRight()"
+            title="Rotate right"
+          >
+            ↷
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Side panel -->
+      <aside class="ar-sidebar">
+
+        <!-- Selected product -->
+        <section class="panel-card">
+
+          <div class="panel-title">
+            Selected lock
+          </div>
+
+          <div
+            class="product-card"
+            *ngIf="selectedProduct"
+          >
+
+            <div class="product-thumbnail">
+              <img
+                [src]="selectedProduct.imageUrl"
+                [alt]="selectedProduct.name"
+              />
+            </div>
+
+            <div class="product-info">
+
+              <div class="product-brand">
+                SALTO
+              </div>
+
+              <div class="product-name">
+                {{ selectedProduct.name }}
+              </div>
+
+              <div class="product-finish">
+                {{ productFinish }}
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Instructions -->
+        <section class="panel-card">
+
+          <div class="panel-title">
+            How to use
+          </div>
+
+          <div class="instruction">
+
+            <span class="instruction-number">
+              1
+            </span>
+
+            <div>
+              <strong>Position</strong>
+
+              <p>
+                Drag the lock onto the existing lock position.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="instruction">
+
+            <span class="instruction-number">
+              2
+            </span>
+
+            <div>
+              <strong>Resize</strong>
+
+              <p>
+                Use + and − to adjust the visual size.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="instruction">
+
+            <span class="instruction-number">
+              3
+            </span>
+
+            <div>
+              <strong>Rotate</strong>
+
+              <p>
+                Rotate the lock if your door handing requires it.
+              </p>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Product selector -->
+        <section class="panel-card">
+
+          <div class="panel-title">
+            Try another lock
+          </div>
+
+          <div class="product-list">
+
+            <button
+              type="button"
+              class="product-option"
+              *ngFor="let product of [
+        ALL_PRODUCTS[0],
+        ALL_PRODUCTS[1],
+        ALL_PRODUCTS[2],
+        ALL_PRODUCTS[3],
+        ALL_PRODUCTS[4]
+      ]"
+              [class.active]="selectedProduct?.id === product.id"
+              (click)="selectProduct(product)"
+            >
+              <img
+                [src]="product.imageUrl"
+                [alt]="product.name"
+              />
+
+              <span>
+        {{ product.name }}
+      </span>
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- Save -->
+        <section class="save-card">
+
+          <div>
+            <strong>Happy with the placement?</strong>
+
+            <p>
+              Save the current AR position and continue with installation.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="save-button"
+            [disabled]="isSaving"
+            (click)="saveView()"
+          >
+            {{ isSaving ? 'Saving...' : 'Save AR View' }}
+          </button>
+
+          <div
+            class="saved-message"
+            *ngIf="savedMessage"
+          >
+            ✓ {{ savedMessage }}
+          </div>
+
+        </section>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+</div>

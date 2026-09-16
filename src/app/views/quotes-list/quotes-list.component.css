@@ -1,0 +1,86 @@
+﻿.quotes-container{height:100%;overflow:auto;background:#f5f7fa}
+.quotes-header{padding:40px 24px 24px;color:#fff;background:linear-gradient(135deg,#1565c0,#00acc1)}
+.header-chip{display:inline-block;padding:4px 8px;margin-bottom:8px;border-radius:4px;background:#ffffff33;font-size:10px;font-weight:700}
+.quotes-header h2{margin:0 0 4px;font-size:22px;font-weight:600}
+.quotes-header p{margin:0;color:#ffffffcc;font-size:13px}
+.quotes-content{max-width:640px;margin:auto;padding:24px 16px}
+.new-quote-button{width:100%;height:48px;margin-bottom:24px;color:#fff!important;background:linear-gradient(90deg,#1565c0,#00acc1)!important;box-shadow:0 4px 16px #1565c04d}
+.new-quote-button:hover{background:linear-gradient(90deg,#0d47a1,#00838f)!important}
+.empty-card{padding:40px 24px;text-align:center;border-radius:16px;box-shadow:0 2px 16px #00000014}
+.empty-icon{width:56px;height:56px;margin-bottom:16px;color:#b0bec5;font-size:56px}
+.empty-card h3{margin:0 0 8px;color:#546e7a;font-size:18px}
+.empty-card p{margin:0;color:#78909c;font-size:13px}
+.quote-card{margin-bottom:16px;border:1px solid transparent;border-radius:16px;box-shadow:0 2px 16px #00000014}
+.quote-active{border-color:#1976d2}
+.quote-header{display:flex;gap:12px;padding:16px 20px 12px}
+.quote-avatar{display:flex;align-items:center;justify-content:center;flex:0 0 40px;width:40px;height:40px;border-radius:50%;color:#fff;background:linear-gradient(135deg,#1565c0,#00acc1);font-size:14px;font-weight:700}
+.avatar-draft{background:linear-gradient(135deg,#546e7a,#78909c)}
+.quote-heading{flex:1;min-width:0}
+.quote-name-row{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.quote-name{font-size:15px;font-weight:700;line-height:1.2}
+.edit-button{width:24px!important;height:24px!important;padding:2px!important;color:#b0bec5!important}
+.edit-button mat-icon{width:14px;height:14px;font-size:14px}
+.meta-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:5px}
+.status-chip,.material-chip,.product-chip,.review-chip{display:inline-flex;align-items:center;gap:4px;border-radius:12px;font-size:10px;font-weight:600}
+.status-chip{height:22px;padding:0 8px}
+.status-chip mat-icon,.review-chip mat-icon{width:14px;height:14px;font-size:14px}
+.status-default{color:#546e7a;background:#fff;border:1px solid #cfd8dc}
+.status-warning{color:#8a5700;background:#fff3cd}
+.status-info{color:#1565c0;background:#e3f2fd}
+.status-success{color:#2e7d32;background:#e8f5e9}
+.status-outlined{background:transparent}
+.material-chip{height:20px;padding:0 8px;background:#f0f0f0;color:#546e7a}
+.product-chip{height:20px;padding:0 8px;background:#e3f2fd;color:#1565c0}
+.quote-date{color:#b0bec5;font-size:11px}
+.simulation{padding:0 20px 10px}
+.sales-progress{height:4px;border-radius:4px}
+.simulation span{display:block;margin-top:4px;color:#546e7a;font-size:11px}
+.approval-wrapper{padding:0 20px 10px}
+.approval-alert{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:8px;background:#edf7ed;color:#2e7d32;font-size:11px;font-weight:600}
+.approval-alert mat-icon{width:17px;height:17px;font-size:17px}
+.door-summary{display:flex;gap:20px;flex-wrap:wrap;padding:12px 20px}
+.summary-item{min-width:65px}
+.summary-label{display:block;margin-bottom:2px;color:#b0bec5;font-size:9px;font-weight:700;letter-spacing:.3px}
+.summary-value{font-size:12px;font-weight:600}
+.fit-good{color:#2e7d32}
+.fit-bad{color:#d32f2f}
+.bom-section{padding:0 20px 16px}
+.bom-title-row{display:flex;align-items:center;gap:8px;margin:12px 0}
+.bom-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700}
+.bom-title mat-icon{width:18px;height:18px;color:#1565c0;font-size:18px}
+.bom-quantity{margin-left:auto;padding:4px 8px;border-radius:12px;background:#1565c0;color:#fff;font-size:10px;font-weight:700}
+.bom-product{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.bom-image{width:56px;height:56px;flex:0 0 56px;overflow:hidden;border-radius:8px}
+.bom-image img{width:100%;height:100%;object-fit:cover}
+.bom-product-info strong,.bom-product-info span{display:block}
+.bom-product-info strong{font-size:13px}
+.bom-product-info span{margin-top:3px;color:#546e7a;font-size:11px}
+.bom-list{display:flex;flex-direction:column}
+.bom-item{display:flex;align-items:center;gap:7px;padding:4px 0}
+.bom-item mat-icon{width:15px;height:15px;color:#2e7d32;font-size:15px}
+.bom-item-name{flex:1;font-size:12px}
+.bom-item-quantity{color:#1565c0;font-size:12px}
+.fit-alert{display:flex;gap:7px;margin-top:10px;padding:7px 10px;border-radius:8px;background:#ffebee;color:#c62828;font-size:11px}
+.fit-alert mat-icon{width:16px;height:16px;font-size:16px}
+.action-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px 16px}
+.bom-toggle{color:#546e7a!important;font-size:12px}
+.bom-toggle mat-icon{width:18px;height:18px;font-size:18px}
+.action-spacer{flex:1}
+.delete-button{color:#b0bec5!important}
+.delete-button:hover{color:#d32f2f!important}
+.send-button{font-size:12px}
+.send-button mat-icon{width:17px;height:17px;font-size:17px}
+.review-chip{height:26px;padding:0 9px;background:#fff3cd;color:#8a5700}
+.review-approved{background:#e8f5e9;color:#2e7d32}
+.bottom-space{height:24px}
+.dialog-backdrop{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;background:#00000052}
+.dialog-card{width:100%;max-width:400px;padding:24px;border-radius:12px;background:#fff;box-shadow:0 12px 40px #00000033}
+.dialog-card h2{margin:0 0 18px;font-size:20px}
+.dialog-card p{margin:0;color:#546e7a;font-size:13px;line-height:1.5}
+.rename-field{width:100%;margin-top:4px}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+.delete-dialog .dialog-actions{margin-top:24px}
+.snackbar{position:fixed;top:20px;left:50%;z-index:1100;display:flex;align-items:center;gap:8px;min-width:280px;max-width:calc(100% - 32px);padding:10px 12px;transform:translateX(-50%);border-radius:8px;background:#323232;color:#fff;box-shadow:0 4px 16px #00000040;font-size:13px}
+.snackbar mat-icon{width:18px;height:18px;color:#81c784;font-size:18px}
+.snackbar span{flex:1}
+@media(max-width:480px){.quotes-header{padding-top:32px}.door-summary{gap:12px}.summary-item{min-width:58px}.action-row{padding:9px 12px}}

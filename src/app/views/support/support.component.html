@@ -1,0 +1,227 @@
+﻿<div class="support-container">
+
+  <!-- Header -->
+  <div class="support-header">
+    <div class="support-badge">SUPPORT</div>
+
+    <h2>How can we help?</h2>
+
+    <p>
+      @if (config.product) {
+        Regarding: {{ productName }}
+      } @else {
+      Get help with your Access Platform lock
+    }
+    </p>
+  </div>
+
+  <div class="support-content">
+
+    <!-- Contact options -->
+    <h3 class="section-title">Contact us</h3>
+
+    <div class="contact-grid">
+      @for (contact of contactOptions; track contact.label) {
+        <mat-card class="contact-card">
+          <mat-card-content>
+
+            <div
+              class="contact-avatar"
+              [style.background]="contact.bg"
+              [style.color]="contact.color">
+              <mat-icon>{{ contact.icon }}</mat-icon>
+            </div>
+
+            <div class="contact-label">
+              {{ contact.label }}
+            </div>
+
+            <div class="contact-sub">
+              {{ contact.sub }}
+            </div>
+
+            <button
+              mat-stroked-button
+              class="contact-button"
+              [style.border-color]="contact.color"
+              [style.color]="contact.color">
+              {{ contact.action }}
+            </button>
+
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+    <!-- Status -->
+    <div class="status-banner">
+      <mat-icon>check_circle</mat-icon>
+      <div>
+        <strong>All systems operational</strong>
+        <span> — No known issues with the Access Platform service.</span>
+      </div>
+    </div>
+
+    <!-- Send a message -->
+    <mat-card class="message-card">
+      <mat-card-content>
+
+        <div class="message-title">
+          <mat-icon>email</mat-icon>
+          <span>Send a message</span>
+        </div>
+
+        @if (!submitted) {
+
+          <div class="message-label">
+            What do you need help with?
+          </div>
+
+          <div class="topic-list">
+            @for (topic of topics; track topic) {
+              <button
+                mat-stroked-button
+                class="topic-chip"
+                [class.topic-selected]="selectedTopic === topic"
+                (click)="selectedTopic = topic">
+                {{ topic }}
+              </button>
+            }
+          </div>
+
+          @if (config.product) {
+            <div class="context-banner">
+              <mat-icon>info</mat-icon>
+              <span>
+                Your door configuration
+                ({{ config.material }} ·
+                {{ config.width }}×{{ config.height }}mm ·
+                {{ config.finish }})
+                will be included automatically.
+              </span>
+            </div>
+          }
+
+          <mat-form-field appearance="outline" class="message-field">
+            <mat-label>Describe your issue</mat-label>
+            <textarea
+              matInput
+              rows="4"
+              [(ngModel)]="message"
+              placeholder="Tell us what's happening — the more detail the better...">
+            </textarea>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="send-button"
+            [disabled]="!message.trim()"
+            (click)="sendMessage()">
+            Send message
+          </button>
+
+        } @else {
+
+        <div class="submitted-state">
+          <mat-icon class="submitted-icon">check_circle</mat-icon>
+
+          <div class="submitted-title">
+            Message sent!
+          </div>
+
+          <div class="submitted-text">
+            We'll get back to you within 4 hours.
+            Reference:
+            <strong>SP-{{ ticketReference }}</strong>
+          </div>
+
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="sendAnother()">
+            Send another
+          </button>
+        </div>
+
+      }
+
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Book engineer -->
+    <mat-card class="engineer-card">
+      <mat-card-content>
+
+        <div class="engineer-avatar">
+          <mat-icon>build</mat-icon>
+        </div>
+
+        <div class="engineer-copy">
+          <div class="engineer-title">
+            Need a professional install?
+          </div>
+
+          <div class="engineer-sub">
+            Certified engineers available within 2 business days
+          </div>
+        </div>
+
+        <button mat-stroked-button class="book-button">
+          <mat-icon>calendar_month</mat-icon>
+          Book now
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+
+    <!-- FAQ -->
+    <h3 class="section-title faq-title">Common questions</h3>
+
+    <mat-accordion class="faq-list">
+      @for (faq of faqs; track faq.q) {
+        <mat-expansion-panel class="faq-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ faq.q }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="faq-answer">
+            {{ faq.a }}
+          </div>
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
+
+    <!-- Warranty -->
+    <mat-card class="warranty-card">
+      <mat-card-content>
+
+        <div class="warranty-title">
+          <mat-icon>warning_amber</mat-icon>
+          <span>Warranty & returns</span>
+        </div>
+
+        <div class="warranty-list">
+          @for (item of warrantyItems; track item[0]) {
+            <div class="warranty-item">
+              <div>
+                <div class="warranty-key">{{ item[0] }}</div>
+                <div class="warranty-value">{{ item[1] }}</div>
+              </div>
+            </div>
+
+            @if (!$last) {
+              <mat-divider></mat-divider>
+            }
+          }
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <div class="bottom-space"></div>
+
+  </div>
+</div>

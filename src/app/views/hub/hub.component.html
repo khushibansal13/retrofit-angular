@@ -1,0 +1,51 @@
+﻿<div class="hub">
+  <div class="hub-content">
+    @if (tab === 0) {
+      <app-ar-viewer></app-ar-viewer>
+    }
+
+    @if (tab === 1) {
+      <app-quotes-list
+        [quotations]="quotations"
+        (newQuote)="onNewQuote()"
+        (updateQuotation)="onQuotationUpdate($event)"
+        (deleteQuotation)="onQuotationDelete($event)"
+      />
+    }
+
+    @if (tab === 2) {
+      <app-switch-lock
+        [config]="config"
+        (configChange)="onConfigChange($event)"
+        (viewInAR)="goToAR()"
+        (restartWizard)="onRestartWizard()"
+      />
+    }
+
+    @if (tab === 3) {
+      <app-diy-install [config]="config" />
+    }
+
+    @if (tab === 4) {
+      <app-support [config]="config" />
+    }
+  </div>
+
+  <div class="bottom-navigation">
+    @for (item of tabs; track item.label; let i = $index) {
+      <button
+        type="button"
+        class="nav-item"
+        [class.active]="tab === i"
+        (click)="setTab(i)">
+        <span class="icon-wrapper">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          @if (i === 1 && draftCount > 0) {
+            <span class="draft-badge">{{ draftCount }}</span>
+          }
+        </span>
+        <span class="nav-label">{{ item.label }}</span>
+      </button>
+    }
+  </div>
+</div>

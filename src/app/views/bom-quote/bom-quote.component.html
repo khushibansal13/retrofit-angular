@@ -1,0 +1,241 @@
+﻿<div class="bom-container">
+  <header class="bom-header">
+    <div>
+      <span class="eyebrow">STEP 4</span>
+      <h2>BOM & Quote</h2>
+      <p>Review your configuration and request a quote.</p>
+    </div>
+
+    <mat-icon>receipt_long</mat-icon>
+  </header>
+
+  <main class="bom-content">
+
+    @if (!product) {
+      <section class="empty-state">
+        <mat-icon>lock_open</mat-icon>
+        <h3>No lock selected</h3>
+        <p>Go back to the lock selection step and choose a product first.</p>
+      </section>
+    } @else {
+
+    <section class="summary-card">
+      <div class="summary-image">
+        <img
+          [src]="product.imageUrl"
+          [alt]="product.name">
+      </div>
+
+      <div class="summary-info">
+        <span class="summary-label">SELECTED LOCK</span>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.tagline }}</p>
+
+        <div class="summary-meta">
+          <span>{{ config.material }}</span>
+          <span>{{ config.thickness }} mm</span>
+          <span>{{ config.finish }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">BILL OF MATERIALS</span>
+          <h3>Required components</h3>
+        </div>
+
+        <span class="item-count">
+            {{ totalItems }} items
+          </span>
+      </div>
+
+      <div class="bom-list">
+
+        @for (item of commonBom; track item) {
+          <div class="bom-item">
+            <div class="bom-icon">
+              <mat-icon>inventory_2</mat-icon>
+            </div>
+
+            <div class="bom-info">
+              <span class="bom-name">{{ item }}</span>
+              <span class="bom-type">Common accessory</span>
+            </div>
+
+            <span class="bom-quantity">
+                × {{ quantity }}
+              </span>
+          </div>
+        }
+
+        @for (item of accessories; track item) {
+          <div class="bom-item">
+            <div class="bom-icon">
+              <mat-icon>build</mat-icon>
+            </div>
+
+            <div class="bom-info">
+              <span class="bom-name">{{ item }}</span>
+              <span class="bom-type">{{ product.name }}</span>
+            </div>
+
+            <span class="bom-quantity">
+                × {{ quantity }}
+              </span>
+          </div>
+        }
+
+      </div>
+    </section>
+
+    <section class="section configuration">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">CONFIGURATION</span>
+          <h3>Your requirements</h3>
+        </div>
+      </div>
+
+      <div class="config-grid">
+        <div class="config-item">
+          <span class="config-label">Environment</span>
+          <span class="config-value">
+              {{ config.environment }}
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Door material</span>
+          <span class="config-value">
+              {{ config.material }}
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Door size</span>
+          <span class="config-value">
+              {{ config.width }} × {{ config.height }} mm
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Thickness</span>
+          <span class="config-value">
+              {{ config.thickness }} mm
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Direction</span>
+          <span class="config-value">
+              {{ config.direction }}
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Frame</span>
+          <span class="config-value">
+              {{ config.frameType }}
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Existing lock</span>
+          <span class="config-value">
+              {{ config.existingLock }}
+            </span>
+        </div>
+
+        <div class="config-item">
+          <span class="config-label">Finish</span>
+          <span class="config-value">
+              {{ config.finish }}
+            </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="quantity-card">
+      <div>
+        <span class="quantity-label">QUANTITY</span>
+        <p>How many locks do you need?</p>
+      </div>
+
+      <div class="quantity-control">
+        <button
+          type="button"
+          (click)="setQuantity(quantity - 1)"
+          [disabled]="quantity <= 1">
+          −
+        </button>
+
+        <span>{{ quantity }}</span>
+
+        <button
+          type="button"
+          (click)="setQuantity(quantity + 1)">
+          +
+        </button>
+      </div>
+    </section>
+
+    @if (config.fitStatus === 'no-fit') {
+      <section class="warning-card">
+        <mat-icon>warning</mat-icon>
+
+        <div>
+          <strong>Modification may be required</strong>
+          <p>
+            The selected lock does not exactly match the detected door
+            configuration. A sales engineer will verify the installation
+            requirements.
+          </p>
+        </div>
+      </section>
+    }
+
+    @if (submitted) {
+      <section class="success-card">
+        <div class="success-icon">
+          <mat-icon>check</mat-icon>
+        </div>
+
+        <div>
+          <span class="success-label">QUOTE REQUESTED</span>
+          <h3>Your request has been submitted</h3>
+          <p>
+            A sales engineer can review your configuration and contact you
+            with the final quotation.
+          </p>
+        </div>
+      </section>
+    } @else {
+      <section class="quote-card">
+        <div class="quote-icon">
+          <mat-icon>request_quote</mat-icon>
+        </div>
+
+        <div class="quote-copy">
+          <h3>Ready for a quote?</h3>
+          <p>
+            Submit your configuration and our sales team will verify the
+            fit and prepare the quotation.
+          </p>
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="submitQuote()">
+          <mat-icon>send</mat-icon>
+          Request Quote
+        </button>
+      </section>
+    }
+
+  }
+  </main>
+</div>

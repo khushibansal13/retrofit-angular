@@ -1,0 +1,474 @@
+﻿<div class="quotes-container">
+
+  <!-- Header -->
+  <div class="quotes-header">
+    <div class="header-chip">
+      QUOTATIONS
+    </div>
+
+    <h2>My Quotes</h2>
+
+    <p>
+      {{ quotations.length }}
+      quote{{ quotations.length !== 1 ? 's' : '' }}
+      saved
+    </p>
+  </div>
+
+  <div class="quotes-content">
+
+    <!-- New quote CTA -->
+    <button
+      mat-raised-button
+      class="new-quote-button"
+      (click)="newQuote.emit()">
+      <mat-icon>add</mat-icon>
+      New Quotation
+    </button>
+
+    <!-- Empty state -->
+    @if (quotations.length === 0) {
+      <mat-card class="empty-card">
+        <mat-icon class="empty-icon">receipt_long</mat-icon>
+
+        <h3>No quotes yet</h3>
+
+        <p>
+          Complete the wizard to configure a door and save your first quote.
+        </p>
+      </mat-card>
+    }
+
+    <!-- Quotations -->
+    @for (q of quotations; track trackQuotation($index, q)) {
+
+      @let product = getProduct(q);
+      @let qty = getQuantity(q);
+      @let fitsProduct = fits(q);
+      @let expanded = isExpanded(q);
+      @let sending = isSending(q);
+
+      <mat-card
+        class="quote-card"
+        [class.quote-active]="
+          q.orderStatus === 'submitted' ||
+          q.orderStatus === 'approved'
+        ">
+
+        <!-- Quote header -->
+        <div class="quote-header">
+
+          <div
+            class="quote-avatar"
+            [class.avatar-draft]="q.orderStatus === 'draft'">
+            {{ $index + 1 }}
+          </div>
+
+          <div class="quote-heading">
+
+            <div class="quote-name-row">
+              <span class="quote-name">
+                {{ q.name }}
+              </span>
+
+              <button
+                mat-icon-button
+                class="edit-button"
+                aria-label="Rename quotation"
+                (click)="startRename(q)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+
+            <div class="meta-row">
+
+              <!-- Status -->
+              <span
+                class="status-chip"
+                [class]="
+                  'status-' + statusClass(q)
+                "
+                [class.status-outlined]="q.orderStatus === 'draft'">
+
+                <mat-icon>
+                  {{ statusIcon(q) }}
+                </mat-icon>
+
+                {{ statusLabel(q) }}
+              </span>
+
+              <!-- Material -->
+              @if (q.config.material) {
+                <span class="material-chip">
+                  {{ q.config.material }}
+                </span>
+              }
+
+              <!-- Product -->
+              @if (product) {
+                <span class="product-chip">
+                  {{ product.name }}
+                </span>
+              }
+
+              <span class="quote-date">
+                {{ formatDate(q.createdAt) }}
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation progress -->
+        @if (sending) {
+          <div class="simulation">
+
+            <mat-progress-bar
+              mode="indeterminate"
+              class="sales-progress">
+            </mat-progress-bar>
+
+            <span>
+              Awaiting Sales team review…
+            </span>
+          </div>
+        }
+
+        <!-- Approved -->
+        @if (q.orderStatus === 'approved') {
+          <div class="approval-wrapper">
+            <div class="approval-alert">
+              <mat-icon>check_circle</mat-icon>
+
+              <span>
+                Quote approved! Sales will contact you shortly.
+              </span>
+            </div>
+          </div>
+        }
+
+        <mat-divider></mat-divider>
+
+        <!-- Door summary -->
+        <div class="door-summary">
+
+          <div class="summary-item">
+            <span class="summary-label">
+              ENVIRONMENT
+            </span>
+
+            <span class="summary-value">
+              {{ q.config.environment || '—' }}
+            </span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">
+              THICKNESS
+            </span>
+
+            <span class="summary-value">
+              {{ q.config.thickness ? q.config.thickness + 'mm' : '—' }}
+            </span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">
+              QTY
+            </span>
+
+            <span class="summary-value">
+              {{ qty }} door{{ qty !== 1 ? 's' : '' }}
+            </span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">
+              FIT
+            </span>
+
+            <span
+              class="summary-value"
+              [class.fit-good]="product && fitsProduct"
+              [class.fit-bad]="product && !fitsProduct">
+
+              @if (product) {
+                {{ fitsProduct ? '✓ Confirmed' : '✗ Issue' }}
+              } @else {
+              —
+            }
+
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Expanded BOM -->
+        @if (expanded && product) {
+
+          <div class="bom-section">
+
+            <mat-divider></mat-divider>
+
+            <div class="bom-title-row">
+
+              <div class="bom-title">
+                <mat-icon>inventory_2</mat-icon>
+
+                <span>
+                  Bill of Materials
+                </span>
+              </div>
+
+              <span class="bom-quantity">
+                × {{ qty }} door{{ qty !== 1 ? 's' : '' }}
+              </span>
+
+            </div>
+
+            <div class="bom-product">
+
+              <div class="bom-image">
+                <img
+                  [src]="product.imageUrl"
+                  [alt]="product.name">
+              </div>
+
+              <div class="bom-product-info">
+
+                <strong>
+                  {{ product.name }}
+                </strong>
+
+                <span>
+                  {{ product.thicknessRange }}
+                  · Finish: {{ q.config.finish }}
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="bom-list">
+
+              @for (
+                item of product.bomAccessories;
+                track trackBomItem($index)
+                ) {
+                <div class="bom-item">
+
+                  <mat-icon>
+                    check_circle
+                  </mat-icon>
+
+                  <span class="bom-item-name">
+                    {{ item }}
+                  </span>
+
+                  <strong class="bom-item-quantity">
+                    × {{ qty }}
+                  </strong>
+
+                </div>
+              }
+
+            </div>
+
+            @if (!fitsProduct) {
+              <div class="fit-alert">
+
+                <mat-icon>error</mat-icon>
+
+                <span>
+                  Fit issue:
+                  {{ product.name }}
+                  requires {{ product.thicknessRange }}
+                  but door is {{ q.config.thickness }}mm.
+                </span>
+
+              </div>
+            }
+
+          </div>
+        }
+
+        <mat-divider></mat-divider>
+
+        <!-- Action row -->
+        <div class="action-row">
+
+          <button
+            mat-button
+            class="bom-toggle"
+            (click)="toggleBom(q)">
+
+            <mat-icon>
+              {{ expanded ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+
+            {{ expanded ? 'Hide BOM' : 'View BOM' }}
+
+          </button>
+
+          <span class="action-spacer"></span>
+
+          <button
+            mat-icon-button
+            class="delete-button"
+            aria-label="Delete quotation"
+            (click)="startDelete(q)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+
+          @if (q.orderStatus === 'draft') {
+
+            <button
+              mat-raised-button
+              class="send-button"
+              [disabled]="!product || sending"
+              (click)="sendToSales(q)">
+
+              <mat-icon>send</mat-icon>
+              Send to Sales
+
+            </button>
+
+          }
+
+          @if (
+            q.orderStatus === 'submitted' ||
+            q.orderStatus === 'approved'
+            ) {
+
+            <span
+              class="review-chip"
+              [class.review-approved]="q.orderStatus === 'approved'">
+
+              <mat-icon>check_circle</mat-icon>
+
+              {{
+                q.orderStatus === 'submitted'
+                  ? 'Awaiting review'
+                  : 'Sales approved'
+              }}
+
+            </span>
+
+          }
+
+        </div>
+
+      </mat-card>
+    }
+
+    <div class="bottom-space"></div>
+
+  </div>
+
+  <!-- Rename dialog -->
+  @if (renamingId) {
+
+    <div
+      class="dialog-backdrop"
+      (click)="cancelRename()">
+
+      <div
+        class="dialog-card"
+        (click)="$event.stopPropagation()">
+
+        <h2>Rename quotation</h2>
+
+        <mat-form-field
+          appearance="outline"
+          class="rename-field">
+
+          <mat-label>
+            Quotation name
+          </mat-label>
+
+          <input
+            matInput
+            [(ngModel)]="renameValue"
+            autofocus
+            (keydown.enter)="confirmRename()">
+
+        </mat-form-field>
+
+        <div class="dialog-actions">
+
+          <button
+            mat-button
+            (click)="cancelRename()">
+            Cancel
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!renameValue.trim()"
+            (click)="confirmRename()">
+            Save
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <!-- Delete confirmation -->
+  @if (confirmDeleteId) {
+
+    <div
+      class="dialog-backdrop"
+      (click)="cancelDelete()">
+
+      <div
+        class="dialog-card delete-dialog"
+        (click)="$event.stopPropagation()">
+
+        <h2>Delete this quote?</h2>
+
+        <p>
+          This action cannot be undone.
+          The quotation will be permanently removed.
+        </p>
+
+        <div class="dialog-actions">
+
+          <button
+            mat-button
+            (click)="cancelDelete()">
+            Cancel
+          </button>
+
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="confirmDelete()">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <!-- Snackbar -->
+  @if (snack) {
+    <div class="snackbar">
+      <mat-icon>check_circle</mat-icon>
+
+      <span>{{ snack }}</span>
+
+      <button
+        mat-icon-button
+        aria-label="Close"
+        (click)="closeSnack()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
+
+</div>

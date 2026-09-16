@@ -1,0 +1,392 @@
+{
+  "schema_version": "0.1-demo",
+  "purpose": "Retrofit AI hackathon MVP: shared product intelligence + compatibility + role-based workflows",
+  "principle": "Vision AI extracts observations; deterministic rules decide technical compatibility.",
+  "products": [
+    {
+      "product_id": "salto_dlok_euro",
+      "name": "SALTO DLok Euro",
+      "family": "DLok",
+      "market": [
+        "residential"
+      ],
+      "door_standard": [
+        "euro_profile_cylinder"
+      ],
+      "retrofit": true,
+      "outside_appearance": "invisible_from_outside",
+      "application": [
+        "apartment",
+        "residential"
+      ],
+      "door_thickness_mm": null,
+      "technical_specs": {
+        "dimensions_mm": "60 x 61",
+        "weight_g": 230,
+        "power": "4 x CR123A lithium batteries",
+        "materials": [
+          "anodised aluminum",
+          "ABS plastic"
+        ],
+        "operating_temperature_c": "0 to +50",
+        "humidity_percent": "0-90 non-condensing"
+      },
+      "technology_platforms": [
+        "Salto Homelok"
+      ],
+      "wireless": [
+        "Bluetooth LE"
+      ],
+      "compatibility_inputs_required": [
+        "euro_profile_cylinder_present",
+        "cylinder_geometry",
+        "application_residential"
+      ],
+      "source_documents": [
+        "DLokEuro_Datasheet_en.pdf",
+        "dlok_1_290_11_258_275.pdf"
+      ]
+    },
+    {
+      "product_id": "salto_dbolt_touch",
+      "name": "SALTO DBolt Touch",
+      "family": "DBolt Touch",
+      "market": [
+        "residential"
+      ],
+      "retrofit": true,
+      "door_standard": [
+        "US_deadbolt"
+      ],
+      "lock_type": [
+        "mechanical_deadbolt"
+      ],
+      "door_thickness_mm": {
+        "min": 35,
+        "max": 85
+      },
+      "backset_mm": [
+        60,
+        70
+      ],
+      "face_plates": [
+        "28.5 mm square corner",
+        "25.4 mm square corner",
+        "25.4 mm + R6.4 mm radius round corner"
+      ],
+      "technical_specs": {
+        "outside_housing_mm": "160 x 68 x 46",
+        "inside_housing_mm": "148 x 72 x 52.7",
+        "power": "3 AA batteries (LR6 1.5V)",
+        "certification": "AAA according to ANSI/BHMA A156.40"
+      },
+      "technology_platforms": [
+        "Salto Space",
+        "Salto KS",
+        "Salto Homelok"
+      ],
+      "wireless": [
+        "Bluetooth LE",
+        "NFC"
+      ],
+      "compatibility_inputs_required": [
+        "US_deadbolt_present",
+        "door_thickness_mm",
+        "backset_mm",
+        "faceplate_geometry"
+      ],
+      "source_documents": [
+        "DBoltTouch_Datasheet_en.pdf"
+      ]
+    },
+    {
+      "product_id": "salto_dbolt_touch_ic",
+      "name": "SALTO DBolt Touch Interconnected",
+      "family": "DBolt Touch",
+      "market": [
+        "residential",
+        "multi_family"
+      ],
+      "retrofit": true,
+      "door_standard": [
+        "US_interconnected_deadbolt"
+      ],
+      "lock_type": [
+        "interconnected_deadbolt"
+      ],
+      "door_thickness_mm": {
+        "min": 40,
+        "max": 85
+      },
+      "center_to_center_fitting_in": [
+        "4",
+        "5.5"
+      ],
+      "backset_mm": [
+        60,
+        70
+      ],
+      "levers": [
+        "N",
+        "A",
+        "G",
+        "K",
+        "O"
+      ],
+      "technical_specs": {
+        "outside_housing_mm": "160 x 68 x 46",
+        "inside_housing_mm": "300 x 77.5 x 63",
+        "power": "3 AA batteries (LR6 1.5V)",
+        "certification": "Grade 2 according to ANSI/BHMA A156.12"
+      },
+      "technology_platforms": [
+        "Salto Space",
+        "Salto KS"
+      ],
+      "wireless": [
+        "Bluetooth LE",
+        "NFC"
+      ],
+      "compatibility_inputs_required": [
+        "interconnected_deadbolt_present",
+        "door_thickness_mm",
+        "center_to_center_fitting",
+        "backset_mm",
+        "lever_configuration"
+      ],
+      "source_documents": [
+        "DBolt Touch Interconnected | Tech. Specs"
+      ]
+    },
+    {
+      "product_id": "salto_xs4_original_plus_ansi",
+      "name": "SALTO XS4 Original+ ANSI",
+      "family": "XS4 Original+",
+      "market": [
+        "commercial",
+        "residential"
+      ],
+      "door_standard": [
+        "ANSI"
+      ],
+      "lock_type": [
+        "mortise",
+        "cylindrical",
+        "tubular_latch"
+      ],
+      "retrofit": true,
+      "compatibility_inputs_required": [
+        "ANSI_profile",
+        "lock_type",
+        "door_thickness_mm",
+        "handing",
+        "required_mortise_or_latch_configuration"
+      ],
+      "technology_platforms": [
+        "BLUEnet"
+      ],
+      "wireless": [
+        "Bluetooth LE",
+        "NFC"
+      ],
+      "source_documents": [
+        "XS4Original+ANSI_Datasheet_en.pdf",
+        "inst_guide_xs4_original_plus_ai6xx_226844_1.pdf"
+      ]
+    },
+    {
+      "product_id": "salto_xs4_original_plus_euro",
+      "name": "SALTO XS4 Original+ EURO",
+      "family": "XS4 Original+",
+      "market": [
+        "commercial",
+        "residential"
+      ],
+      "door_standard": [
+        "European profile",
+        "EURO"
+      ],
+      "lock_type": [
+        "mortise",
+        "tubular_latch"
+      ],
+      "retrofit": true,
+      "compatibility_inputs_required": [
+        "European_profile",
+        "lock_type",
+        "door_thickness_mm",
+        "handing"
+      ],
+      "technology_platforms": [
+        "BLUEnet"
+      ],
+      "wireless": [
+        "Bluetooth LE",
+        "NFC"
+      ],
+      "source_documents": [
+        "XS4Original+EURO_Datasheet_en.pdf",
+        "inst_guide_xs4_original_plus_ei6xx_226864_0.pdf"
+      ]
+    }
+  ],
+  "vision_observations": {
+    "high_confidence_candidates": [
+      "door_present",
+      "door_region",
+      "frame_region",
+      "handle_region",
+      "lock_region",
+      "visible_lock_form_factor",
+      "approximate_door_material",
+      "door_style",
+      "orientation"
+    ],
+    "conditional_candidates": [
+      "lock_family_from_visual_similarity",
+      "cylinder_type",
+      "deadbolt_vs_interconnected_deadbolt",
+      "stile_width_class"
+    ],
+    "do_not_claim_from_single_unscaled_photo": [
+      "exact_door_thickness_mm",
+      "exact_backset_mm",
+      "exact_center_to_center_mm",
+      "exact_hole_spacing_mm",
+      "guaranteed_physical_fit"
+    ]
+  },
+  "personas": {
+    "customer": [
+      "understand_my_door",
+      "recommend_solution",
+      "visualize_solution",
+      "request_quote"
+    ],
+    "sales": [
+      "review_lead",
+      "inspect_evidence",
+      "review_compatibility",
+      "review_configuration",
+      "review_bom",
+      "prepare_quote"
+    ],
+    "installer": [
+      "view_confirmed_profile",
+      "view_configuration",
+      "view_bom",
+      "view_installation_document",
+      "capture_installation_evidence"
+    ],
+    "support": [
+      "identify_product",
+      "search_specs",
+      "troubleshoot",
+      "retrieve_installation_guidance"
+    ],
+    "admin_product": [
+      "manage_products",
+      "manage_rules",
+      "manage_components",
+      "manage_source_documents",
+      "version_rules"
+    ]
+  },
+  "core_entities": {
+    "DoorProfile": [
+      "door_id",
+      "application",
+      "material",
+      "style",
+      "standard",
+      "lock_type",
+      "cylinder_type",
+      "handle_type",
+      "handing",
+      "thickness_mm",
+      "backset_mm",
+      "center_to_center_mm",
+      "stile_width_mm",
+      "source",
+      "confidence",
+      "status"
+    ],
+    "Evidence": [
+      "evidence_id",
+      "image_uri",
+      "source",
+      "captured_at",
+      "quality_score",
+      "privacy_acknowledged",
+      "detected_regions"
+    ],
+    "Product": [
+      "product_id",
+      "family",
+      "name",
+      "market",
+      "door_standard",
+      "lock_type",
+      "specifications",
+      "technology_platforms",
+      "options",
+      "source_documents",
+      "version"
+    ],
+    "CompatibilityRule": [
+      "rule_id",
+      "product_id",
+      "priority",
+      "conditions",
+      "result",
+      "reason",
+      "required_inputs",
+      "source_document",
+      "version"
+    ],
+    "CompatibilityResult": [
+      "product_id",
+      "status",
+      "matched_rules",
+      "failed_rules",
+      "missing_inputs",
+      "reasons",
+      "review_required"
+    ],
+    "Configuration": [
+      "configuration_id",
+      "product_id",
+      "selected_options",
+      "confirmed_door_profile",
+      "quantity",
+      "status"
+    ],
+    "BOMLine": [
+      "component_id",
+      "component_name",
+      "quantity",
+      "required_or_optional",
+      "dependency_rule_id",
+      "source_document"
+    ],
+    "ServiceCase": [
+      "case_id",
+      "product_id",
+      "symptom",
+      "diagnostic_questions",
+      "installation_history",
+      "recommended_action",
+      "source_documents"
+    ]
+  },
+  "poc_acceptance": [
+    "Given a real door photo, detect door/lock/handle/frame regions.",
+    "Return a structured JSON DoorProfile with confidence per field.",
+    "Correctly mark exact physical dimensions as unknown when no scale reference exists.",
+    "Allow one user-confirmed measurement to update the profile.",
+    "Run the updated profile through deterministic compatibility rules.",
+    "Return compatible, incompatible and missing-information states with reasons.",
+    "Generate a configuration and BOM from the selected product.",
+    "Keep source_document/source_reference on technical facts."
+  ]
+}

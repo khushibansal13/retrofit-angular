@@ -1,0 +1,18 @@
+@if (phase() === 'wizard') {
+  <app-wizard
+    [config]="config()"
+    (configChange)="config.set($event)"
+    (finish)="saveQuotation(config())"
+  />
+} @else {
+  <app-hub
+    [config]="config()"
+    [quotations]="quotations()"
+    (configChange)="config.set($event)"
+    (updateQuotation)="updateQuotation($event)"
+    (deleteQuotation)="deleteQuotation($event)"
+    (restartWizard)="restartWizard()"
+    (newQuote)="newQuote()"
+    (editConfiguration)="editConfiguration()"
+  />
+}

@@ -1,0 +1,201 @@
+﻿<div class="install-container">
+
+  <header class="install-header">
+    <div class="header-icon">
+      <mat-icon>build</mat-icon>
+    </div>
+
+    <div class="header-copy">
+      <span class="eyebrow">SELF INSTALLATION</span>
+      <h2>DIY Install</h2>
+      <p>
+        Step-by-step installation guidance for your configured lock.
+      </p>
+    </div>
+  </header>
+
+  <main class="install-content">
+
+    <section class="product-card">
+      <div class="product-image">
+        @if (product) {
+          <img
+            [src]="product.imageUrl"
+            [alt]="product.name">
+        } @else {
+        <mat-icon>lock</mat-icon>
+      }
+      </div>
+
+      <div class="product-info">
+        <span class="product-label">YOUR CONFIGURATION</span>
+        <h3>{{ productName }}</h3>
+
+        <div class="product-meta">
+          <span>{{ config.material }} door</span>
+          <span>{{ config.thickness }}mm</span>
+          <span>{{ config.finish }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="progress-section">
+      <div class="progress-heading">
+        <div>
+          <span class="progress-label">INSTALLATION</span>
+          <strong>
+            Step {{ currentStep + 1 }} of {{ steps.length }}
+          </strong>
+        </div>
+
+        <span class="progress-percent">
+          {{ ((currentStep + 1) / steps.length * 100) | number:'1.0-0' }}%
+        </span>
+      </div>
+
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          [style.width.%]="((currentStep + 1) / steps.length) * 100">
+        </div>
+      </div>
+    </section>
+
+    <section class="step-navigation">
+      @for (step of steps; track step.title; let i = $index) {
+        <button
+          type="button"
+          class="step-dot"
+          [class.active]="i === currentStep"
+          [class.completed]="i < currentStep"
+          (click)="goToStep(i)"
+          [attr.aria-label]="'Go to step ' + (i + 1)">
+          @if (i < currentStep) {
+            <mat-icon>check</mat-icon>
+          } @else {
+          {{ i + 1 }}
+        }
+        </button>
+
+        @if (i < steps.length - 1) {
+          <div
+            class="step-connector"
+            [class.completed]="i < currentStep">
+          </div>
+        }
+      }
+    </section>
+
+    <section class="instruction-card">
+
+      <div class="step-icon">
+        <mat-icon>{{ currentInstallStep.icon }}</mat-icon>
+      </div>
+
+      <div class="step-copy">
+        <span class="step-number">
+          STEP {{ currentStep + 1 }}
+        </span>
+
+        <h3>{{ currentInstallStep.title }}</h3>
+
+        <p>
+          {{ currentInstallStep.description }}
+        </p>
+      </div>
+
+    </section>
+
+    @if (currentInstallStep.warning) {
+      <section class="warning-card">
+        <mat-icon>warning</mat-icon>
+
+        <div>
+          <strong>Important</strong>
+          <p>{{ currentInstallStep.warning }}</p>
+        </div>
+      </section>
+    }
+
+    <section class="tools-card">
+      <div class="tools-header">
+        <mat-icon>handyman</mat-icon>
+
+        <div>
+          <span>TOOLS &amp; SAFETY</span>
+          <p>
+            Keep the following ready before starting the installation.
+          </p>
+        </div>
+      </div>
+
+      <div class="tools-list">
+        <span>
+          <mat-icon>build</mat-icon>
+          Screwdriver
+        </span>
+
+        <span>
+          <mat-icon>straighten</mat-icon>
+          Measuring tape
+        </span>
+
+        <span>
+          <mat-icon>architecture</mat-icon>
+          Level
+        </span>
+
+        <span>
+          <mat-icon>visibility</mat-icon>
+          Safety glasses
+        </span>
+      </div>
+    </section>
+
+    <section class="help-card">
+      <div class="help-icon">
+        <mat-icon>support_agent</mat-icon>
+      </div>
+
+      <div>
+        <strong>Need help?</strong>
+        <p>
+          If something doesn't match your configuration, stop installation
+          and contact the sales/support team.
+        </p>
+      </div>
+    </section>
+
+    <div class="navigation-buttons">
+      <button
+        mat-stroked-button
+        type="button"
+        [disabled]="isFirstStep"
+        (click)="previous()">
+        <mat-icon>arrow_back</mat-icon>
+        Previous
+      </button>
+
+      @if (!isLastStep) {
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="next()">
+          Next step
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      } @else {
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="restart()">
+        <mat-icon>check</mat-icon>
+        Installation complete
+      </button>
+    }
+    </div>
+
+  </main>
+</div>
